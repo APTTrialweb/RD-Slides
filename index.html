@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>APT, RD Slides Info Form</title>
+  <title>RD, Slides Updation Form</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -17,8 +17,8 @@
     form { background: rgba(255,255,255,0.06); padding: 25px; max-width: 450px; margin: 20px auto; border-radius: 10px; box-shadow: 0 0 15px rgba(255,255,255,0.2); position: relative; z-index: 1; }
     .input-group { position: relative; margin: 15px 0; }
     .input-group i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc; }
-    .input-group input, .input-group select { width: 100%; padding: 10px 10px 10px 35px; background: rgba(255,255,255,0.1); border: none; border-radius: 5px; color: #fff; }
-    .input-group input::placeholder { color: #bbb; }
+    .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 10px 10px 10px 35px; background: rgba(255,255,255,0.1); border: none; border-radius: 5px; color: #fff; }
+    .input-group input::placeholder, .input-group textarea::placeholder { color: #bbb; }
     .input-group select { background: #000; color: #fff; }
     button { width: 100%; padding: 12px; background: #00e0ff; color: white; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; }
   </style>
@@ -29,17 +29,24 @@
 
 <div class="container">
   <img src="https://apt.shiksha/_next/image?url=%2Fimages%2Flogo-dark.png&w=256&q=75" alt="APT Logo">
-  <h2>APT Work Submission Form</h2>
+  <h2>RD, Slides Updation Form</h2>
 </div>
 
 <form id="workForm">
   <div class="input-group">
+    <i class="fa-solid fa-users"></i>
+    <select name="batch" id="batch" required>
+      <option value="" disabled selected>Select Batch</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="CAF">CAF</option>
+      <option value="CAI">CAI</option>
+    </select>
+  </div>
+  <div class="input-group">
     <i class="fa-solid fa-book"></i>
     <select name="subject" id="subject" required>
       <option value="" disabled selected>Select Subject</option>
-      <option value="Accounts">Accounts</option>
-      <option value="Audit">Audit</option>
-      <option value="Law">Law</option>
     </select>
   </div>
   <div class="input-group">
@@ -53,18 +60,12 @@
     <input type="text" name="topic" placeholder="Topic Name" required>
   </div>
   <div class="input-group">
-    <i class="fa-solid fa-users"></i>
-    <select name="batch" required>
-      <option value="" disabled selected>Select Batch</option>
-      <option value="11">11</option>
-      <option value="12">12</option>
-      <option value="CAF">CAF</option>
-      <option value="CAI">CAI</option>
-    </select>
-  </div>
-  <div class="input-group">
     <i class="fa-solid fa-link"></i>
     <input type="text" name="reference" placeholder="Reference (If Any)">
+  </div>
+  <div class="input-group">
+    <i class="fa-solid fa-briefcase"></i>
+    <textarea name="work" placeholder="What is the Work?" required></textarea>
   </div>
   <button type="submit">Submit</button>
 </form>
@@ -81,46 +82,41 @@
     }
   });
 
-  const chapters = {
-    'Accounts': [
-      'Accounting Principles & Concepts',
-      'Final Accounts of Sole Proprietor',
-      'Depreciation Accounting',
-      'Bills of Exchange',
-      'Rectification of Errors'
-    ],
-    'Audit': [
-      'Nature Objective and Scope of Audit',
-      'Audit Strategy, Audit Planning and Audit Programme',
-      'Risk Assessment and Internal Control',
-      'Audit Evidence',
-      'Audit of Items of Financial Statements',
-      'Audit Documentation',
-      'Completion and Review',
-      'Audit Report',
-      'Special Features of Audit',
-      'Bank Audit',
-      'Ethics and Terms of Audit Engagement'
-    ],
-    'Law': [
-      'Indian Contract Act, 1872',
-      'Sale of Goods Act, 1930',
-      'Negotiable Instruments Act, 1881',
-      'Companies Act, 2013',
-      'Consumer Protection Act, 2019'
-    ]
+  const data = { '11': { 'Accounts': ['INTRODUCTION TO ACCOUNTING', 'BASIC ACCOUNTING TERMS', 'THEORY BASE OF ACCOUNTING', 'BASES OF ACCOUNTING', 'ACCOUNTING EQUATION', 'RULES OF DEBIT AND CREDIT', 'SOURCE DOCUMENTS AND VOUCHERS', 'JOURNAL', 'LEDGER', 'SPECIAL PURPOSE BOOKS I', 'SPECIAL PURPOSE BOOKS II', 'ACCOUNTING OF GOODS AND SERVICES TAX', 'BANK RECONCILIATION STATEMENT', 'TRIAL BALANCE', 'DEPRECIATION', 'PRIVISIONS AND RESERVES', 'RECTIFICATION OF ERRORS', 'FINANCIAL STATEMENTS WITHOUT ADJUSTMENT', 'FINANCIAL STATEMENTS WITH ADJUSTMENT', 'ACCOUNTS OF INCOMPLETE RECORDS'], 'Economics': ['INTRODUCTION TO MICROECONOMIC', 'CONSUMERS EQUILIBRIUM', 'DEMAND', 'ELASTICITY OF DEMAND', 'PRODUCTION', 'COST', 'REVENUE', 'PRODUCERS EQUILIBRIUM', 'SUPPLY', 'MAIN MARKET FORMS', 'PRICE DETERMINATION'], 'Business Studies': ['NATURE AND PURPOSE OF BUSINESS', 'FORMS OF BUSINESS ORGANISATION', 'PUBLIC, PRIVATE AND GLOBAL ENTERPRISES', 'BUSINESS SERVICES', 'EMERGING MODES OF BUSINESS', 'SOCIAL RESPONSIBILITIES OF BUSINESS AND BUSINESS ETHICS', 'SOURCES OF BUSINESS ENVIRONMENT', 'SMALL BUSINESS', 'INTERNAL TRADE', 'INTERNATIONAL TRADE'], 'Mathematics': ['IND AND LOG', 'NUMBERS', 'SEQ AND SERIES', 'SETS AND RELATION', 'QUANT APTITUDE', 'MENSURATION', 'PER AND COMB', 'FUNCTION', 'LIMIT AND CONTINUITY', 'DIFFERENTIATION', 'LR', 'DESCRIPTIVE STAT', 'CI AND ANNUITY', 'PROBABILITY', 'CIRCLE AND PARABOLA', 'TAXATION', 'UTIITY BILLS', 'STRAIGHT LINE AND'] }, '12': { 'Accounts': ['PARTNERSHIP-FUNDAMENTALS', 'GOODWILL :NATURE & VALUATION', 'CHANGE IN PROFIT SHARING RATIO', 'ADMISSION OF A PARTNER', 'RETIREMENT / DEATH OF A PARTNER', 'DISSOLUTION OF A PARTNERSHIP FIRM', 'FINANCIAL STATEMENTS OF A COMPANY & FINANCIAL STATEMENTS ANALYSIS', 'COMPARATIVE & COMMON-SIZE STATEMENT', 'ACCOUNTING RATIOS', 'CASH FLOW STATEMENT', 'ACCOUNTING FOR SHARES', 'ISSUE OF DEBENTURE'], 'Economics': ['Indian Economy On the Eve Of Independence', 'Indian Economy 1950-1990', 'Liberalization Privatization Globalization', 'Human Capital Formation', 'Rural Development', 'Employment', 'Environment & Sustainable Development', 'Developmental Experience of India – A Comparison With Neighbour’s', 'National Income & its Related Aggregates', 'Basic Concepts of Macro Economics', 'Measurement of National Income Theory', 'Aggregate Demand and Related Concepts', 'Income Determinates & Multiplier', 'Excess Demand & Deficit Demand', 'Money', 'Banking', 'Government Budget', 'Balance of Payment', 'Foreign Exchange'], 'Business Studies': ['Nature and Significance of Management', 'Principles Of Management', 'Business Environment', 'Planning', 'Organizing', 'Staffing', 'Directing', 'Controlling', 'Financial Management', 'Financial Market', 'Marketing Management', 'Consumer Protection'], 'Mathematics': ['NUMBERS, QUANTIFICATION, NUMERICAL APPLICATIONS', 'NUMERICAL INEQUALITIES', 'MATRICES', 'DETERMINANT', 'DIFFERENTIATION', 'APPLICATION OF DERIVATIVES', 'INTEGRALS', 'DIFFERENTIAL EQUATIONS', 'PROBABILITY', 'INFERENTIAL STATISTICS', 'INDEX NUMBER AND TIME SERIES DATA', 'PERPETUITY, SINKING FUNDS, BONDS AND EMI', 'SSTOCK, SHARES, DEBENTURES', 'RETURN, GROWTH, DEPRECIATION', 'LINEAR PROGRAMMING'] }, 'CAF': { 'Accounts': ['Meaning and Scope of Accounting', 'Accounting Concepts, Principles and Conventions', 'Capital and Revenue Expenditures and Receipts', 'Contingent Assets and Contingent Liabilities', 'Accounting Policies', 'Accounting as a Measurement Discipline – Valuation Principles, Accounting Estimates', 'Accounting Standards', 'Basic Accounting Procedures – Journal entries', 'Ledgers', 'Trial Balance', 'Subsidiary Books', 'Cash Book', 'Rectification of Errors', 'Bank Reconciliation and Statement', 'Inventories', 'Depreciation and Amortisation', 'Bills of Exchange and Promissory Notes', 'Preparation of Final Accounts of Sole Proprietors', 'Final Accounts of Non-Manufacturing Entities', 'Final Accounts of Manufacturing Entities', 'Financial Statements of Not-for-Profit Organisations', 'Accounts from Incomplete Records', 'Partnership and LLP Accounts', 'Company Accounts'], 'Law': ['Indian Regulatory Framework', 'Indian Contract Act, 1872', 'The Sale of Goods Act, 1930', 'The Indian Partnership Act. 1932', 'The Limited Liability Partnership Act, 2008', 'The Companies Act, 2013', 'The Negotiable Instruments Act, 1881'], 'Economics': ['Introduction to Business Economics', 'Theory of Demand and Supply', 'Theory of Production and Cost', 'Price Determination in Different Markets', 'Business cycles', 'Determination of National Income', 'Public Finance', 'Money Market', 'International Trade', 'Indian Economy'], 'Mathematics': ['NUMBERS, QUANTIFICATION, NUMERICAL APPLICATIONS', 'NUMERICAL INEQUALITIES', 'MATRICES', 'DETERMINANT', 'DIFFERENTIATION', 'APPLICATION OF DERIVATIVES', 'INTEGRALS', 'DIFFERENTIAL EQUATIONS', 'PROBABILITY', 'INFERENTIAL STATISTICS', 'INDEX NUMBER AND TIME SERIES DATA', 'PERPETUITY, SINKING FUNDS, BONDS AND EMI', 'SSTOCK, SHARES, DEBENTURES', 'RETURN, GROWTH, DEPRECIATION', 'LINEAR PROGRAMMING'] }, 'CAI': { 'Law': ['Preliminary', 'Incorporation of Company and Matters Incidental Thereto', 'Prospectus and Allotment of Securities', 'Share Capital and Debentures', 'Acceptance of Deposits by Companies', 'Registration of Charges', 'Management & Administration', 'Declaration and Payment of Dividend', 'Accounts of Companies', 'Audit and Auditors', 'Companies Incorporated Outside India', 'The Limited Liability Partnership Act, 2008', 'The General Clauses Act, 1897', 'Interpretation of Statutes', 'The Foreign Exchange Management Act, 1999'], 'Audit': ['Nature, Objective and Scope of Audit', 'Audit Strategy, Audit Planning and Audit Programme', 'Audit Documentation and Audit Evidence', 'Risk Assessment and Internal Control', 'Fraud and Responsibilities of the Auditor in this Regard', 'Audit in an Automated Environment', 'Audit Sampling', 'Analytical Procedures', 'Audit of Items of Financial Statements', 'The Company Audit', 'Audit Report', 'Audit of Banks', 'Audit of Different Types of Entities'] } };
+
+  const subjectsByBatch = {
+    '11': ['Accounts', 'Economics', 'Business Studies', 'Mathematics'],
+    '12': ['Accounts', 'Economics', 'Business Studies', 'Mathematics'],
+    'CAF': ['Accounts', 'Law', 'Economics', 'Mathematics'],
+    'CAI': ['Accounts', 'Law', 'Audit']
   };
 
+  document.getElementById('batch').addEventListener('change', function() {
+    const selectedBatch = this.value;
+    const subjectSelect = document.getElementById('subject');
+    subjectSelect.innerHTML = '<option value="" disabled selected>Select Subject</option>';
+    subjectsByBatch[selectedBatch].forEach(subject => {
+      const option = document.createElement('option');
+      option.value = subject;
+      option.textContent = subject;
+      subjectSelect.appendChild(option);
+    });
+    document.getElementById('chapter').innerHTML = '<option value="" disabled selected>Select Chapter</option>';
+  });
+
   document.getElementById('subject').addEventListener('change', function() {
+    const selectedBatch = document.getElementById('batch').value;
     const selectedSubject = this.value;
     const chapterSelect = document.getElementById('chapter');
     chapterSelect.innerHTML = '<option value="" disabled selected>Select Chapter</option>';
-    chapters[selectedSubject].forEach(chapter => {
-      const option = document.createElement('option');
-      option.value = chapter;
-      option.textContent = chapter;
-      chapterSelect.appendChild(option);
-    });
+    if (data[selectedBatch] && data[selectedBatch][selectedSubject]) {
+      data[selectedBatch][selectedSubject].forEach(chapter => {
+        const option = document.createElement('option');
+        option.value = chapter;
+        option.textContent = chapter;
+        chapterSelect.appendChild(option);
+      });
+    }
   });
 
   document.getElementById("workForm").addEventListener("submit", function(e) {
@@ -137,17 +133,18 @@
       confirmButtonText: 'Yes, Submit'
     }).then((result) => {
       if (result.isConfirmed) {
-        const data = new FormData();
-        data.append("entry.1628510679", form.subject.value);
-        data.append("entry.1288290965", form.chapter.value);
-        data.append("entry.64214834", form.topic.value);
-        data.append("entry.2113660475", form.batch.value);
-        data.append("entry.2141419434", form.reference.value);
+        const formData = new FormData();
+        formData.append("entry.2113660475", form.batch.value);
+        formData.append("entry.1628510679", form.subject.value);
+        formData.append("entry.1288290965", form.chapter.value);
+        formData.append("entry.64214834", form.topic.value);
+        formData.append("entry.2141419434", form.reference.value);
+        formData.append("entry.1391982015", form.work.value);
 
         fetch("https://docs.google.com/forms/d/e/1FAIpQLSe07Dp-R7CzHcuaD2-2jDYZpXA9-imBTQajO6TZB6ialyQUAg/formResponse", {
           method: "POST",
           mode: "no-cors",
-          body: data
+          body: formData
         }).then(() => {
           Swal.fire({ icon: 'success', title: '✅ Submitted!', text: 'Your work submission has been sent.', confirmButtonColor: '#00e0ff' });
           form.reset();
