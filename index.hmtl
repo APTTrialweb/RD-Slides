@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>APT, RD Slides Info</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #0c0c1b; font-family: 'Segoe UI', sans-serif; color: #fff; }
+    #particles-js { position: fixed; width: 100%; height: 100%; z-index: 0; }
+    .container { text-align: center; padding-top: 30px; position: relative; z-index: 1; }
+    .container img { width: 70px; }
+    .container h2 { color: #00e0ff; font-size: 1.6rem; }
+    form { background: rgba(255,255,255,0.06); padding: 25px; max-width: 450px; margin: 20px auto; border-radius: 10px; box-shadow: 0 0 15px rgba(255,255,255,0.2); position: relative; z-index: 1; }
+    .input-group { position: relative; margin: 15px 0; }
+    .input-group i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc; }
+    .input-group input, .input-group select { width: 100%; padding: 10px 10px 10px 35px; background: rgba(255,255,255,0.1); border: none; border-radius: 5px; color: #fff; }
+    .input-group input::placeholder { color: #bbb; }
+    .input-group select { background: #000; color: #fff; }
+    button { width: 100%; padding: 12px; background: #00e0ff; color: white; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<div class="container">
+  <img src="https://apt.shiksha/_next/image?url=%2Fimages%2Flogo-dark.png&w=256&q=75" alt="APT Logo">
+  <h2>APT Work Submission Form</h2>
+</div>
+
+<form id="workForm">
+  <div class="input-group">
+    <i class="fa-solid fa-book"></i>
+    <select name="subject" id="subject" required>
+      <option value="" disabled selected>Select Subject</option>
+      <option value="Accounts">Accounts</option>
+      <option value="Audit">Audit</option>
+      <option value="Law">Law</option>
+    </select>
+  </div>
+  <div class="input-group">
+    <i class="fa-solid fa-layer-group"></i>
+    <select name="chapter" id="chapter" required>
+      <option value="" disabled selected>Select Chapter</option>
+    </select>
+  </div>
+  <div class="input-group">
+    <i class="fa-solid fa-pen"></i>
+    <input type="text" name="topic" placeholder="Topic Name" required>
+  </div>
+  <div class="input-group">
+    <i class="fa-solid fa-users"></i>
+    <select name="batch" required>
+      <option value="" disabled selected>Select Batch</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="CAF">CAF</option>
+      <option value="CAI">CAI</option>
+    </select>
+  </div>
+  <div class="input-group">
+    <i class="fa-solid fa-link"></i>
+    <input type="text" name="reference" placeholder="Reference (If Any)">
+  </div>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: "#00e0ff" },
+      shape: { type: "edge" },
+      opacity: { value: 0.4 },
+      size: { value: 3, random: true },
+      move: { enable: true, speed: 1.5, direction: "top", out_mode: "out" }
+    }
+  });
+
+  const chapters = {
+    'Accounts': [
+      'Accounting Principles & Concepts',
+      'Final Accounts of Sole Proprietor',
+      'Depreciation Accounting',
+      'Bills of Exchange',
+      'Rectification of Errors'
+    ],
+    'Audit': [
+      'Nature Objective and Scope of Audit',
+      'Audit Strategy, Audit Planning and Audit Programme',
+      'Risk Assessment and Internal Control',
+      'Audit Evidence',
+      'Audit of Items of Financial Statements',
+      'Audit Documentation',
+      'Completion and Review',
+      'Audit Report',
+      'Special Features of Audit',
+      'Bank Audit',
+      'Ethics and Terms of Audit Engagement'
+    ],
+    'Law': [
+      'Indian Contract Act, 1872',
+      'Sale of Goods Act, 1930',
+      'Negotiable Instruments Act, 1881',
+      'Companies Act, 2013',
+      'Consumer Protection Act, 2019'
+    ]
+  };
+
+  document.getElementById('subject').addEventListener('change', function() {
+    const selectedSubject = this.value;
+    const chapterSelect = document.getElementById('chapter');
+    chapterSelect.innerHTML = '<option value="" disabled selected>Select Chapter</option>';
+    chapters[selectedSubject].forEach(chapter => {
+      const option = document.createElement('option');
+      option.value = chapter;
+      option.textContent = chapter;
+      chapterSelect.appendChild(option);
+    });
+  });
+
+  document.getElementById("workForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const form = e.target;
+
+    Swal.fire({
+      title: 'Confirm Submission',
+      text: 'Are you sure you want to submit?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#00e0ff',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Submit'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const data = new FormData();
+        data.append("entry.1628510679", form.subject.value);
+        data.append("entry.1288290965", form.chapter.value);
+        data.append("entry.64214834", form.topic.value);
+        data.append("entry.2113660475", form.batch.value);
+        data.append("entry.2141419434", form.reference.value);
+
+        fetch("https://docs.google.com/forms/d/e/1FAIpQLSe07Dp-R7CzHcuaD2-2jDYZpXA9-imBTQajO6TZB6ialyQUAg/formResponse", {
+          method: "POST",
+          mode: "no-cors",
+          body: data
+        }).then(() => {
+          Swal.fire({ icon: 'success', title: '✅ Submitted!', text: 'Your work submission has been sent.', confirmButtonColor: '#00e0ff' });
+          form.reset();
+        }).catch(() => {
+          Swal.fire({ icon: 'error', title: '❌ Failed!', text: 'Something went wrong.', confirmButtonColor: '#d33' });
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
